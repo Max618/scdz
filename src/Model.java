@@ -1,4 +1,8 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 public abstract class Model {
 	private String local = "localhost";
     private String user = "admin";
@@ -9,8 +13,9 @@ public abstract class Model {
     private Statement statement;
     private String str_conexao;
     private String driverjdbc;
+    public Map<String, String> fillable;
  
-    public Model() {
+    public Model(String[] attributes,String[] data) {
         this.str_conexao = "jdbc:postgresql://"+ this.local +":" + this.port +"/"+ this.database;
         this.driverjdbc = "org.postgresql.Driver";
         try {
@@ -26,7 +31,9 @@ public abstract class Model {
 		catch(Exception e){
 		  System.out.println("Problemas ao tentar conectar com o banco de dados: " + e);
 		}
-    } 
+        this.fillable = new HashMap<String, String>();
+        this.mapArray(attributes, data);
+    }
     
     public void finalize() {
     	try {
@@ -36,11 +43,35 @@ public abstract class Model {
           ex.printStackTrace();
         }
     }
-
-    /*public void create(String data[]) {
-    	String query = "insert into tabela (";
-    	for (String string : data) {
-			data.
+    
+    private String getClassName() {
+        return this.getClass().getName().toLowerCase().concat("s");
+    }
+    
+    private void mapArray(String[] attributes, String data[]) {
+    	for(int i = 0; i < attributes.length; i++) {
+    		this.fillable.put(attributes[i],data[i]);
+    	}	
+    }
+    
+    public void create(String data[]) {
+    	List<String> list = new ArrayList<String>(this.fillable.keySet());
+    	String query = "insert into "+ this.getClassName() +" (";
+    	for(int i = 0; i < list.size(); i++) {
+    		query += list.get(i) + ",";
+    	}
+    	query = query.substring(0, query.length() - 1);
+    	query += ") values (";
+    	for(int i = 0; i < list.size(); i++) {
+    		query += "'" + this.fillable.get(list.get(i)) +"',";
+    	}
+    	query = query.substring(0, query.length() - 1);
+    	query += ");";
+    	try {
+			statement.execute(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-    }*/
+    }
 }
