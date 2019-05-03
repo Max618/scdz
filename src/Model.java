@@ -14,6 +14,7 @@ public abstract class Model {
     private String str_conexao;
     private String driverjdbc;
     public Map<String, String> fillable;
+    protected abstract void setId(int id);
  
     public Model(String[] attributes,String[] data) {
         this.str_conexao = "jdbc:postgresql://"+ this.local +":" + this.port +"/"+ this.database;
@@ -44,34 +45,96 @@ public abstract class Model {
         }
     }
     
-    private String getClassName() {
+    private String getTableName() {
         return this.getClass().getName().toLowerCase().concat("s");
     }
     
     private void mapArray(String[] attributes, String data[]) {
     	for(int i = 0; i < attributes.length; i++) {
     		this.fillable.put(attributes[i],data[i]);
-    	}	
+    	}
     }
     
-    public void create(String data[]) {
-    	List<String> list = new ArrayList<String>(this.fillable.keySet());
-    	String query = "insert into "+ this.getClassName() +" (";
-    	for(int i = 0; i < list.size(); i++) {
-    		query += list.get(i) + ",";
+    private String removeLastChar(String s) {
+    	return s.substring(0, s.length() - 1);
+    }
+    private String makeQuery(String type) {
+    	String query = "";
+    	if(type.equals("insert")){
+    		List<String> list = this.getAttributes();
+    		query = "insert into " + this.getTableName() + " (";
+    		for(int i = 0; i < list.size(); i++) {
+        		query += list.get(i) + ",";
+        	}
+    		query += "created_at";
+        	//query = removeLastChar(query);
+        	query += ") values (";
+        	for(int i = 0; i < list.size(); i++) {
+        		query += "'" + this.fillable.get(list.get(i)) +"',";
+        	}
+        	query += "current_timestamp";
+        	//query = removeLastChar(query);
+        	query += ")";
     	}
-    	query = query.substring(0, query.length() - 1);
-    	query += ") values (";
-    	for(int i = 0; i < list.size(); i++) {
-    		query += "'" + this.fillable.get(list.get(i)) +"',";
+    	if(type.equals("update")) {
+    		query = "update " + this.getTableName() + " set ";
     	}
-    	query = query.substring(0, query.length() - 1);
-    	query += ");";
+    	else if(type.equals("delete")) {
+    		query = "delete from " + this.getTableName() + " ";
+    	}
+    	else if(type.equals("select")) {
+    		query = "select * from " + this.getTableName() + " ";
+    	}
+    	return query + ";";
+    }
+    
+    private String makeQuery(String type, String options) {
+    	String query = "";
+    	if(type.equals("update")) {
+    		query = "update " + this.getTableName() + " set ";
+    	}
+    	else if(type.equals("delete")) {
+    		query = "delete from " + this.getTableName() + " ";
+    	}
+    	else if(type.equals("select")) {
+    		query = "select * from " + this.getTableName() + " " + options;
+    	}
+    	return query + ";";
+    }
+    
+    public ArrayList<String> getAttributes(){
+    	return new ArrayList<String>(this.fillable.keySet());
+    }
+    
+    public void create() {
+    	
+    	String query = this.makeQuery("insert");
+    	System.out.println(query);
     	try {
 			statement.execute(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	String op = "order by created_at desc limit 1";
+    	String querySelect = this.makeQuery("select", op);
+    	
+    	try {
+			statement.execute(querySelect);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	try {
+			ResultSet rs = statement.executeQuery(querySelect);
+			while (rs.next())
+			{
+				this.setId(rs.getInt("id"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     }
 }
