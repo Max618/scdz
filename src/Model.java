@@ -3,66 +3,61 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 public abstract class Model {
-	private String local = "localhost";
-    private String user = "admin";
-    private String password = "";
-    private String port = "5432";
-    private String database = "banco-projeto";
-    private Connection c;
-    private Statement statement;
-    private String str_conexao;
-    private String driverjdbc;
-    public Map<String, String> fillable;
+    protected Map<String, String> fillable;
     protected abstract void setId(int id);
+    private static Class<? extends Model> myClass;
+    private Map<String, Integer> att;
  
-    public Model(String[] attributes,String[] data) {
-        this.str_conexao = "jdbc:postgresql://"+ this.local +":" + this.port +"/"+ this.database;
-        this.driverjdbc = "org.postgresql.Driver";
-        try {
-          Class.forName(this.driverjdbc);
-          this.c = DriverManager.getConnection(this.str_conexao, this.user, this.password);
-          this.statement = (Statement) this.c.createStatement();
-        }
-        catch(SQLException ex){
-	      System.out.println("SQLException: " + ex.getMessage());
-	      System.out.println("SQLState: " + ex.getSQLState());
-	      System.out.println("VendorError: " + ex.getErrorCode());
-	    }
-		catch(Exception e){
-		  System.out.println("Problemas ao tentar conectar com o banco de dados: " + e);
-		}
-        this.fillable = new HashMap<String, String>();
-        this.mapArray(attributes, data);
+    public Model() {
+    	super();
+        this.att = new HashMap<String, Integer>();
     }
     
-    public void finalize() {
-    	try {
-          this.c.close();
-        }catch (SQLException ex) {
-          System.err.println(ex);
-          ex.printStackTrace();
-        }
+    protected static void setMyClass(Class<? extends Model> clazz)
+    {
+        myClass = clazz;
+    }
+     
+    private static Class<? extends Model> getMyClass() 
+    {
+        return myClass;
     }
     
-    private String getTableName() {
-        return this.getClass().getName().toLowerCase().concat("s");
+    private static String getTableName() {
+        return Model.getCallerClass().toString().split(" ",2)[1].toLowerCase().concat("s");
     }
     
-    private void mapArray(String[] attributes, String data[]) {
-    	for(int i = 0; i < attributes.length; i++) {
-    		this.fillable.put(attributes[i],data[i]);
-    	}
+    private static Object getCallerClass() {
+    	//return new Throwable().getStackTrace()[1].getClassName();
+    	return getMyClass();
     }
     
     private String removeLastChar(String s) {
     	return s.substring(0, s.length() - 1);
     }
-    private String makeQuery(String type) {
+    
+    protected void mapArray(String[] attributes, String data[]) {
+    	for(int i = 0; i < attributes.length; i++) {
+    		this.fillable.put(attributes[i],data[i]);
+    		this.att.put(attributes[i], i);
+    	}
+    }
+    
+    protected void mapArray(String[] attributes) {
+    	for(int i = 0; i < attributes.length; i++) {
+    		this.fillable.put(attributes[i], ""+i);
+    		this.att.put(attributes[i], i);
+    	}
+    }
+    
+    private String makeQuery(String type, String[] data) {
     	String query = "";
+    	List<String> list = this.getAttributes();
+    	this.fill(data);
     	if(type.equals("insert")){
-    		List<String> list = this.getAttributes();
-    		query = "insert into " + this.getTableName() + " (";
+    		query = "insert into " + Model.getTableName() + " (";
     		for(int i = 0; i < list.size(); i++) {
         		query += list.get(i) + ",";
         	}
@@ -77,13 +72,17 @@ public abstract class Model {
         	query += ")";
     	}
     	if(type.equals("update")) {
-    		query = "update " + this.getTableName() + " set ";
+    		query = "update " + Model.getTableName() + " set";
+    		for(int i = 0; i < list.size(); i++) {
+        		query += " " + list.get(i) + " = '" + this.fillable.get(list.get(i)) + "',";
+        	}
+    		query = removeLastChar(query);
     	}
     	else if(type.equals("delete")) {
-    		query = "delete from " + this.getTableName() + " ";
+    		query = "delete from " + Model.getTableName() + " ";
     	}
     	else if(type.equals("select")) {
-    		query = "select * from " + this.getTableName() + " ";
+    		query = "select * from " + Model.getTableName() + " ";
     	}
     	return query + ";";
     }
@@ -91,42 +90,47 @@ public abstract class Model {
     private String makeQuery(String type, String options) {
     	String query = "";
     	if(type.equals("update")) {
-    		query = "update " + this.getTableName() + " set ";
+    		query = "update " + Model.getTableName() + " set ";
     	}
     	else if(type.equals("delete")) {
-    		query = "delete from " + this.getTableName() + " ";
+    		query = "delete from " + Model.getTableName() + " " + options;
     	}
     	else if(type.equals("select")) {
-    		query = "select * from " + this.getTableName() + " " + options;
+    		query = "select * from " + Model.getTableName() + " " + options;
     	}
     	return query + ";";
     }
     
-    public ArrayList<String> getAttributes(){
+    public Object fill(String[] data) {
+    	String[] attributes = this.fillable.keySet().toArray(new String[this.fillable.size()]);
+    	try {
+    		for(int i = 0; i < this.fillable.size(); i++) {
+        		String index = this.fillable.get(attributes[i]);
+        		this.fillable.put(attributes[i],data[Integer.parseInt(index)]);
+        	}
+    	} catch (NumberFormatException e) {
+    		for(int i = 0; i < this.fillable.size(); i++) {
+        		int index = this.att.get(attributes[i]);
+        		this.fillable.put(attributes[i],data[index]);
+        	}
+    	}
+    	return this;
+    }
+    
+    private ArrayList<String> getAttributes(){
     	return new ArrayList<String>(this.fillable.keySet());
     }
     
-    public void create() {
+    public Object create(String[] data) {
     	
-    	String query = this.makeQuery("insert");
+    	String query = this.makeQuery("insert", data);
     	System.out.println(query);
-    	try {
-			statement.execute(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	Con.executeInsertQuery(query);
     	String op = "order by created_at desc limit 1";
     	String querySelect = this.makeQuery("select", op);
     	
     	try {
-			statement.execute(querySelect);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	try {
-			ResultSet rs = statement.executeQuery(querySelect);
+			ResultSet rs = Con.executeSelectQuery(querySelect);
 			while (rs.next())
 			{
 				this.setId(rs.getInt("id"));
@@ -135,6 +139,70 @@ public abstract class Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return Model.getCallerClass();
     	
+    }
+    
+    public Object find(int id) {
+    	String op = "where id = " + id;
+    	String query = this.makeQuery("select", op);
+    	List<String> list = this.getAttributes();
+    	try {
+			ResultSet rs = Con.executeSelectQuery(query);
+			while (rs.next())
+			{
+				for(int i = 0; i < list.size(); i++) {
+					this.fillable.put(list.get(i), rs.getString(list.get(i)));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Model.getCallerClass();
+    }
+    
+    public Object all() {
+    	// IMPLEMENTANDO AINDA
+//    	String query = this.makeQuery("select", "");
+//    	List<String> list = this.getAttributes();
+//    	try {
+//			ResultSet rs = Con.executeSelectQuery(query);
+//			while (rs.next())
+//			{
+//				for(int i = 0; i < list.size(); i++) {
+//					this.fillable.put(list.get(i), rs.getString(list.get(i)));
+//				}
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		return Model.getCallerClass();
+    }
+    
+    public Object update(String[] data, int id) {
+    	String query = this.makeQuery("update", data);
+    	query = removeLastChar(query);
+    	query += " where id = " + id + ";";
+    	Con.executeUpdateQuery(query);
+    	return Model.getCallerClass();
+    }
+    public Object delete(int id) {
+    	String options = "where id = " + id;
+    	String query = this.makeQuery("delete", options);
+    	Con.executeDeleteQuery(query);
+    	return Model.getCallerClass();
+    }
+    
+    public void imprimir() {
+    	List<String> list = this.getAttributes();
+    	String value;
+    	String key;
+    	for(int i = 0; i < this.fillable.size(); i++) {
+    		key = list.get(i);
+    		value = this.fillable.get(key);
+    		System.out.println(key + ": " + value);
+    	}
     }
 }
