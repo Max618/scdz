@@ -44,7 +44,8 @@ CREATE TABLE public.employees (
     password character varying(255),
     address character varying(255),
     cpf character varying(14),
-    salary numeric(15,2)
+    salary numeric(15,2),
+    created_at timestamp
 );
 
 
@@ -81,7 +82,8 @@ CREATE TABLE public.products (
     name character varying(255),
     quantity integer,
     price numeric(15,2),
-    provider_id integer NOT NULL
+    provider_id integer NOT NULL,
+    created_at timestamp
 );
 
 
@@ -119,7 +121,8 @@ CREATE TABLE public.providers (
     cnpj character varying(50),
     email character varying(255),
     phone character varying(20),
-    address character varying(255)
+    address character varying(255),
+    created_at timestamp
 );
 
 
@@ -192,7 +195,8 @@ CREATE TABLE public.sale_product (
     id integer NOT NULL,
     quantity integer NOT NULL,
     sale_id integer NOT NULL,
-    product_id integer NOT NULL
+    product_id integer NOT NULL,
+    created_at timestamp
 );
 
 
@@ -228,7 +232,8 @@ CREATE TABLE public.sales (
     id integer NOT NULL,
     date timestamp without time zone,
     value numeric(15,2),
-    employee_id integer NOT NULL
+    employee_id integer NOT NULL,
+    created_at timestamp
 );
 
 
