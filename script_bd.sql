@@ -1,4 +1,4 @@
---
+﻿--
 -- PostgreSQL database dump
 --
 
@@ -37,6 +37,8 @@ SET default_with_oids = false;
 -- Name: employees; Type: TABLE; Schema: public; Owner: homestead
 --
 
+sexta 16:45 sala imensidao
+
 CREATE TABLE public.employees (
     id integer NOT NULL,
     name character varying(255),
@@ -56,7 +58,7 @@ ALTER TABLE public.employees OWNER TO homestead;
 --
 
 CREATE SEQUENCE public.employees_id_seq
-    AS integer
+    as integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE

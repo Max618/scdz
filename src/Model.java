@@ -125,12 +125,12 @@ public abstract class Model {
     	
     	String query = this.makeQuery("insert", data);
     	System.out.println(query);
-    	Con.executeInsertQuery(query);
+    	Conn.executeInsertQuery(query);
     	String op = "order by created_at desc limit 1";
     	String querySelect = this.makeQuery("select", op);
     	
     	try {
-			ResultSet rs = Con.executeSelectQuery(querySelect);
+			ResultSet rs = Conn.executeSelectQuery(querySelect);
 			while (rs.next())
 			{
 				this.setId(rs.getInt("id"));
@@ -148,7 +148,7 @@ public abstract class Model {
     	String query = this.makeQuery("select", op);
     	List<String> list = this.getAttributes();
     	try {
-			ResultSet rs = Con.executeSelectQuery(query);
+			ResultSet rs = Conn.executeSelectQuery(query);
 			while (rs.next())
 			{
 				for(int i = 0; i < list.size(); i++) {
@@ -185,13 +185,13 @@ public abstract class Model {
     	String query = this.makeQuery("update", data);
     	query = removeLastChar(query);
     	query += " where id = " + id + ";";
-    	Con.executeUpdateQuery(query);
+    	Conn.executeUpdateQuery(query);
     	return Model.getCallerClass();
     }
     public Object delete(int id) {
     	String options = "where id = " + id;
     	String query = this.makeQuery("delete", options);
-    	Con.executeDeleteQuery(query);
+    	Conn.executeDeleteQuery(query);
     	return Model.getCallerClass();
     }
     

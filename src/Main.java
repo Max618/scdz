@@ -45,7 +45,13 @@ public class Main {
 
 
 	public static void main(String[] args) {
-		int opcao_entidade;
+		 java.awt.EventQueue.invokeLater(new Runnable() {
+	          public void run() {
+	               IndexView frame = new IndexView();
+	               frame.setVisible(true);
+	          }
+	    });
+		/* int opcao_entidade;
 		int opcao_acao;
 		int id;
 		String[] data = new String[10];
@@ -104,7 +110,7 @@ public class Main {
 					break;
 				}
 			break;
-		}
+		}*/
 	}
 
 }

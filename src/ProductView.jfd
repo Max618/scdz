@@ -1,0 +1,48 @@
+JFDML JFormDesigner: "7.0.0.0.194" Java: "11.0.2" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:35:p, par l {comp button1::l::238:x, seq {par l {comp label1:::p::p, seq l {par l {par l:l::p {comp textField2::::113:x, comp textField1::::113:x}, comp label3::l:p::p}, space :::p, par l {comp label4:::p::p, comp textField3:::p:113:p, comp cmbprovider:::p:113:p, comp label2::l:p::p}}}, space :0:0:x}}, space :p:30:p}}"
+			"$verticalGroup": "par l {seq l {space :::p, par b {comp label1::b:p::p, comp label2::b:p::p}, space :::p, par b {comp textField2::b:p::p, comp textField3::b:p::p}, space :::p, par b {comp label3::b:p::p, comp label4::b:p::p}, space :::p, par b {comp textField1::b:p::p, comp cmbprovider::b:p:20:p}, space :::x, comp button1:::p::p, space :::p}}"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField1"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField2"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField3"
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "cmbprovider"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "Cadastrar"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Produto"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Quantidade"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "Preco Unitario"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Fornecedor"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 305, 190 )
+		} )
+	}
+}

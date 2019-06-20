@@ -1,0 +1,63 @@
+JFDML JFormDesigner: "7.0.0.0.194" Java: "11.0.2" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :::p, par t:::p {comp button1::::285:x, seq {par t {seq {par l:::p {comp txtnome::l::117:x, comp label1::l:p:64:p, comp txtemail::l::117:x, comp label2::l:p:64:p}, space :p:51:p}, seq l {par t {comp txtsenha::l:p:117:p, comp label3::l:p:64:p}, space :::p}}, par l {comp txten:::p:117:p, comp label4:::p:64:p, comp txtcpf:::p:117:p, comp label5:::p:64:p, comp txtsalario:::p:117:p, comp label6:::p:64:p}}}, space ::13:x}}"
+			"$verticalGroup": "par l {seq l {par b {comp label1::b:p::p, comp label4::b:p::p}, space :::p, par b {comp txtnome::b:p::p, comp txten::b:p::p}, space u:::p, par b {comp label2::b:p::p, comp label5::b:p::p}, space :p:3:p, par b {comp txtemail::b:p::p, comp txtcpf::b:p::p}, space u:::p, par b {comp label6::b:p::p, comp label3::b:p::p}, space :p:1:p, par b {comp txtsalario::b:p::p, comp txtsenha::b:p::p}, space :p:16:p, comp button1:::p::p, space :::x}}"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtnome"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtemail"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txten"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Nome:"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Email:"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "Senha"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Endereço:"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtcpf"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "CPF:"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtsalario"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label6"
+				"text": "Salário:"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "Cadastrar"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JPasswordField" ) {
+				name: "txtsenha"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 310, 225 )
+		} )
+	}
+}

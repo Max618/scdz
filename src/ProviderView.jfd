@@ -1,0 +1,56 @@
+JFDML JFormDesigner: "7.0.0.0.194" Java: "11.0.2" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:24:p, par l {comp txten:::p:247:p, comp txtemail:::p:109:p, seq {par l {comp label1::l:p::p, comp txtnome::l:p:109:p, comp label3::l:p::p}, space :p:29:p, par l {comp label2::l:p::p, comp txtcnpj:::p:109:p, comp label4::l:p::p, comp txttel::l:p:109:p}}, comp label5::l:p::p, comp btncad::l:::x}, space ::22:x}}"
+			"$verticalGroup": "par l {seq l {space :::p, par b {comp label1::b:p::p, comp label2::b:p::p}, space :::p, par b {comp txtnome::b:p::p, comp txtcnpj::b:p::p}, space :::p, par b {comp label3::b:p::p, comp label4::b:p::p}, space :::p, par b {comp txtemail::b:p::p, comp txttel::b:p::p}, space :p:5:p, comp label5:::p::p, space :::p, comp txten:::p::p, space :::p, comp btncad:::p::p, space ::8:x}}"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtnome"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtemail"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txten"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtcnpj"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txttel"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btncad"
+				"text": "Cadastrar"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btncadMouseClicked", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Nome"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "CNPJ"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "E-mail"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Telefone"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "Endereco"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 295, 220 )
+		} )
+	}
+}
