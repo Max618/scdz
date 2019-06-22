@@ -1,8 +1,8 @@
 import java.sql.*;
-public class Con {
+public class Conn {
 	private static String local = "localhost";
-    private static String user = "admin";
-    private static String password = "";
+    private static String user = "postgres";
+    private static String password = "postgres";
     private static String port = "5432";
     private static String database = "banco-projeto";
     private static Connection c;
@@ -11,12 +11,12 @@ public class Con {
     private static String driverjdbc;
     
     public static void initialize() {
-    	Con.str_conexao = "jdbc:postgresql://"+ Con.local +":" + Con.port +"/"+ Con.database;
-        Con.driverjdbc = "org.postgresql.Driver";
+    	Conn.str_conexao = "jdbc:postgresql://"+ Conn.local +":" + Conn.port +"/"+ Conn.database;
+        Conn.driverjdbc = "org.postgresql.Driver";
         try {
-          Class.forName(Con.driverjdbc);
-          Con.c = (Connection) DriverManager.getConnection(Con.str_conexao, Con.user, Con.password);
-          Con.statement = (Statement) ((java.sql.Connection) Con.c).createStatement();
+          Class.forName(Conn.driverjdbc);
+          Conn.c = (Connection) DriverManager.getConnection(Conn.str_conexao, Conn.user, Conn.password);
+          Conn.statement = (Statement) ((java.sql.Connection) Conn.c).createStatement();
         }
         catch(SQLException ex){
 	      System.out.println("SQLException: " + ex.getMessage());
@@ -30,7 +30,7 @@ public class Con {
     
     public static void end() {
     	try {
-          Con.c.close();
+          Conn.c.close();
         }catch (SQLException ex) {
           System.err.println(ex);
           ex.printStackTrace();

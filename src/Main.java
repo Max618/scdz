@@ -45,9 +45,19 @@ public class Main {
 
 
 	public static void main(String[] args) {
+<<<<<<< HEAD
 //		MainFrame frame = new MainFrame();
 //		frame.setVisible(true);
 		int opcao_entidade;
+=======
+		 java.awt.EventQueue.invokeLater(new Runnable() {
+	          public void run() {
+	               IndexView frame = new IndexView();
+	               frame.setVisible(true);
+	          }
+	    });
+		/* int opcao_entidade;
+>>>>>>> 27bdd659de785183c9aa942dabc496e4995f428a
 		int opcao_acao;
 		int id;
 		String[] data = new String[10];
@@ -110,7 +120,7 @@ public class Main {
 						System.out.println(e.all());
 				}
 			break;
-		}
+		}*/
 	}
 
 }
