@@ -164,21 +164,28 @@ public abstract class Model {
     
     public Object all() {
     	// IMPLEMENTANDO AINDA
-//    	String query = this.makeQuery("select", "");
-//    	List<String> list = this.getAttributes();
-//    	try {
-//			ResultSet rs = Con.executeSelectQuery(query);
-//			while (rs.next())
-//			{
-//				for(int i = 0; i < list.size(); i++) {
-//					this.fillable.put(list.get(i), rs.getString(list.get(i)));
-//				}
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		return Model.getCallerClass();
+    	String query = this.makeQuery("select", "");
+    	//List<String> list = new ArrayList<String>();
+    	ResultSet rs = Con.executeSelectQuery(query);
+		try {
+			ResultSetMetaData rsmd = rs.getMetaData(); 
+			int columnCount = rsmd.getColumnCount();
+			ArrayList<String> list = new ArrayList<String>(columnCount);
+			ArrayList<ArrayList> resultList = new ArrayList<ArrayList>(); 
+			while (rs.next()) {              
+			   int i = 1;
+			   while(i <= columnCount) {
+			        list.add(rs.getString(i++));
+			   }
+			   resultList.add(list);
+			   list = new ArrayList<String>(columnCount);
+			}
+			return resultList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
     }
     
     public Object update(String[] data, int id) {

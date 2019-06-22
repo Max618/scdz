@@ -45,11 +45,14 @@ public class Main {
 
 
 	public static void main(String[] args) {
+//		MainFrame frame = new MainFrame();
+//		frame.setVisible(true);
 		int opcao_entidade;
 		int opcao_acao;
 		int id;
 		String[] data = new String[10];
 		Product p;
+		Employee e;
 		System.out.println("Bem vindo ao SCDZ!");
 		do {
 			menuInicial();
@@ -62,7 +65,7 @@ public class Main {
 		do {
 			menuAcao();
 			opcao_acao = scanner.nextInt();
-		}while(opcao_acao > 5 || opcao_acao < 0);
+		}while(opcao_acao < 0);
 		
 		switch(opcao_entidade) {
 			case 1:
@@ -102,6 +105,9 @@ public class Main {
 					case 5:
 						System.out.println("Em construcao :(");
 					break;
+					case 10:
+						e = new Employee();
+						System.out.println(e.all());
 				}
 			break;
 		}
