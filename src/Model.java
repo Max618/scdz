@@ -166,7 +166,7 @@ public abstract class Model {
     	// IMPLEMENTANDO AINDA
     	String query = this.makeQuery("select", "");
     	//List<String> list = new ArrayList<String>();
-    	ResultSet rs = Con.executeSelectQuery(query);
+    	ResultSet rs = Conn.executeSelectQuery(query);
 		try {
 			ResultSetMetaData rsmd = rs.getMetaData(); 
 			int columnCount = rsmd.getColumnCount();
@@ -180,7 +180,7 @@ public abstract class Model {
 			   resultList.add(list);
 			   list = new ArrayList<String>(columnCount);
 			}
-			return resultList;
+			return list;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

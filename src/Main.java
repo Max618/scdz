@@ -45,11 +45,7 @@ public class Main {
 
 
 	public static void main(String[] args) {
-<<<<<<< HEAD
-//		MainFrame frame = new MainFrame();
-//		frame.setVisible(true);
-		int opcao_entidade;
-=======
+
 		 java.awt.EventQueue.invokeLater(new Runnable() {
 	          public void run() {
 	               IndexView frame = new IndexView();

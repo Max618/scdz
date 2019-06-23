@@ -48,6 +48,15 @@ public class IndexView extends JFrame {
 	    });
 	}
 
+	private void menuItem4MouseClicked(MouseEvent e) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+	          public void run() {
+	               ProductView frame = new ProductView();
+	               frame.setVisible(true);
+	          }
+	    });
+	}
+
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		// Generated using JFormDesigner Evaluation license - MATHEUS CANDIDO CARVALHO
@@ -83,6 +92,12 @@ public class IndexView extends JFrame {
 
 			//---- menuItem4 ----
 			menuItem4.setText("Produtos");
+			menuItem4.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					menuItem4MouseClicked(e);
+				}
+			});
 			menuBar1.add(menuItem4);
 
 			//---- btnemployeemenu ----
@@ -120,7 +135,7 @@ public class IndexView extends JFrame {
 					.add(contentPaneLayout.createParallelGroup(GroupLayout.TRAILING)
 						.add(scrollPane1, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
 						.add(txtcodigo, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(142, Short.MAX_VALUE))
+					.addContainerGap(137, Short.MAX_VALUE))
 		);
 		pack();
 		setLocationRelativeTo(getOwner());
