@@ -147,7 +147,6 @@ public class ProductView extends JFrame {
 	
 	public void Conexao() {
 		Provider pr = new Provider();
-		txtshow.setText(pr.all().toString());
 		
 	}
 

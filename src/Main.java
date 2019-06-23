@@ -48,7 +48,7 @@ public class Main {
 
 		 java.awt.EventQueue.invokeLater(new Runnable() {
 	          public void run() {
-	               IndexView frame = new IndexView();
+	               LoginView frame = new LoginView();
 	               frame.setVisible(true);
 	          }
 	    });

@@ -121,21 +121,21 @@ public class IndexView extends JFrame {
 		contentPane.setLayout(contentPaneLayout);
 		contentPaneLayout.setHorizontalGroup(
 			contentPaneLayout.createParallelGroup()
-				.add(contentPaneLayout.createSequentialGroup()
+				.add(GroupLayout.TRAILING, contentPaneLayout.createSequentialGroup()
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.add(scrollPane1, GroupLayout.PREFERRED_SIZE, 366, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(LayoutStyle.UNRELATED)
+					.addPreferredGap(LayoutStyle.RELATED)
 					.add(txtcodigo, GroupLayout.PREFERRED_SIZE, 226, GroupLayout.PREFERRED_SIZE)
-					.add(6, 6, 6))
+					.add(12, 12, 12))
 		);
 		contentPaneLayout.setVerticalGroup(
 			contentPaneLayout.createParallelGroup()
 				.add(contentPaneLayout.createSequentialGroup()
 					.addContainerGap()
-					.add(contentPaneLayout.createParallelGroup(GroupLayout.TRAILING)
-						.add(scrollPane1, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
+					.add(contentPaneLayout.createParallelGroup()
+						.add(scrollPane1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
 						.add(txtcodigo, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(137, Short.MAX_VALUE))
+					.addContainerGap(189, Short.MAX_VALUE))
 		);
 		pack();
 		setLocationRelativeTo(getOwner());

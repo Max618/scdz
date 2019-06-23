@@ -143,6 +143,28 @@ public abstract class Model {
     	
     }
     
+    public Boolean Login(String email, String senha) {
+    	try {
+    	
+        ResultSet rs;
+        String query = "SELECT email, password From employees WHERE email = '?' and password = '?'";
+        rs = Conn.executeSelectQuery(query);
+        while(rs.next())
+        {
+        	
+        	String user = rs.getString(1);
+        	String pass = rs.getString(2);
+        	if(email == user && senha == pass){
+        		return true;
+        	}
+        	return false;
+        		
+        }
+    }catch(SQLException exception) {
+        exception.printStackTrace();
+    }
+		return false;
+		}
     public Object find(int id) {
     	String op = "where id = " + id;
     	String query = this.makeQuery("select", op);
