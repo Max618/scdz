@@ -67,6 +67,8 @@ public class IndexView extends JFrame {
 		txtcodigo = new JTextField();
 		scrollPane1 = new JScrollPane();
 		table1 = new JTable();
+		label1 = new JLabel();
+		button1 = new JButton();
 
 		//======== this ========
 		addWindowListener(new WindowAdapter() {
@@ -117,16 +119,30 @@ public class IndexView extends JFrame {
 			scrollPane1.setViewportView(table1);
 		}
 
+		//---- label1 ----
+		label1.setText("Para adicionar um item a venda, coloque o Id do produto");
+		label1.setFont(new Font("Tahoma", Font.PLAIN, 23));
+
+		//---- button1 ----
+		button1.setText("Adicionar Produto");
+
 		GroupLayout contentPaneLayout = new GroupLayout(contentPane);
 		contentPane.setLayout(contentPaneLayout);
 		contentPaneLayout.setHorizontalGroup(
 			contentPaneLayout.createParallelGroup()
-				.add(GroupLayout.TRAILING, contentPaneLayout.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.add(scrollPane1, GroupLayout.PREFERRED_SIZE, 366, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(LayoutStyle.RELATED)
-					.add(txtcodigo, GroupLayout.PREFERRED_SIZE, 226, GroupLayout.PREFERRED_SIZE)
-					.add(12, 12, 12))
+				.add(contentPaneLayout.createSequentialGroup()
+					.addContainerGap()
+					.add(contentPaneLayout.createParallelGroup()
+						.add(GroupLayout.TRAILING, contentPaneLayout.createSequentialGroup()
+							.add(0, 0, Short.MAX_VALUE)
+							.add(scrollPane1, GroupLayout.PREFERRED_SIZE, 366, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(LayoutStyle.RELATED)
+							.add(contentPaneLayout.createParallelGroup(GroupLayout.LEADING, false)
+								.add(txtcodigo, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+								.add(button1, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
+							.add(19, 19, 19))
+						.add(label1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		contentPaneLayout.setVerticalGroup(
 			contentPaneLayout.createParallelGroup()
@@ -134,8 +150,13 @@ public class IndexView extends JFrame {
 					.addContainerGap()
 					.add(contentPaneLayout.createParallelGroup()
 						.add(scrollPane1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-						.add(txtcodigo, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(189, Short.MAX_VALUE))
+						.add(contentPaneLayout.createSequentialGroup()
+							.add(txtcodigo, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(LayoutStyle.UNRELATED)
+							.add(button1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addPreferredGap(LayoutStyle.UNRELATED)
+					.add(label1, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(35, Short.MAX_VALUE))
 		);
 		pack();
 		setLocationRelativeTo(getOwner());
@@ -151,5 +172,7 @@ public class IndexView extends JFrame {
 	private JTextField txtcodigo;
 	private JScrollPane scrollPane1;
 	private JTable table1;
+	private JLabel label1;
+	private JButton button1;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }
