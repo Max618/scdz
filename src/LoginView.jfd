@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq t {space :::x, comp button1:::p:165:p, space :p:8:p}}"
-			"$verticalGroup": "par l {seq l {space :::p, comp button1::::126:x, space :::p}}"
+			"$horizontalGroup": "par l {seq {space :::p, par l {seq t {par t {comp txtlogin::::300:x, comp button1::::300:x}, space :p:8:p}, seq l {comp label1:::p::p, space ::277:x}, seq {comp txtsenha::::298:x, space :::p}, seq l {comp label2:::p::p, space :0:278:x}}}}"
+			"$verticalGroup": "par l {seq t {space :p:14:p, comp label1:::p::p, space :::p, comp txtlogin:::p::p, space :p:23:p, comp label2:::p::p, space :::p, comp txtsenha:::p::p, space :::x, comp button1:::p:55:p, space :::p}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -13,9 +13,23 @@ new FormModel {
 				"text": "Entrar"
 				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
 			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtlogin"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "E-mail"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Senha"
+			} )
+			add( new FormComponent( "javax.swing.JPasswordField" ) {
+				name: "txtsenha"
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 5 )
-			"size": new java.awt.Dimension( 185, 180 )
+			"size": new java.awt.Dimension( 320, 220 )
 		} )
 	}
 }
